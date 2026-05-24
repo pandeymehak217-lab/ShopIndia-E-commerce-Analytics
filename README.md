@@ -1,40 +1,48 @@
 # ShopIndia E-commerce Sales Analytics
 
-**Author:** Mehak Pandey
-**Email:** pandeymehak.217@gmail.com
-**Tools:** SQL, Python, Statistics, Excel
-**Dataset:** 6 tables | 40,000 orders | 77,000 line items | 2020-2024
+I wanted to build something that combined SQL with actual statistics.
+Not just GROUP BY and window functions but real hypothesis testing —
+the kind of thing that comes up when you work with a product or marketing
+team and they ask you to prove whether something is actually working or
+just looks like it is working.
+
+E-commerce felt like the right domain because the data is rich and the
+business questions are straightforward. Everyone understands what revenue,
+margin, and return rate mean so it is easy to explain what you found.
 
 ---
 
-## Project Overview
+## What I Built
 
-ShopIndia is a simulated Indian e-commerce platform analytics project covering
-end-to-end sales analysis from raw transaction data to executive dashboards.
-The project demonstrates skills that are directly tested in data analyst interviews
-at companies like Flipkart, Amazon India, Nykaa, Meesho, and Reliance Retail.
+End-to-end sales analysis on 40,000 orders and 77,000 line items across
+6 tables. SQL analysis with 25+ queries, Python for statistical testing
+and charts, and a 5-sheet Excel report.
 
-The analysis covers revenue performance, customer segmentation using RFM modelling,
-statistical hypothesis testing, return analysis, campaign ROI measurement
+The statistical testing part is what I am most proud of in this project.
+I ran Pearson correlation, one-way ANOVA, and descriptive statistics
+using SciPy in Python and put the results in both the dashboard and
+the Excel report with proper interpretation.
 
 ---
 
-## Dataset Schema
+## Dataset
 
-| Table | Rows | Description |
-|-------|------|-------------|
-| customers | 5,000 | Demographics, segment, acquisition source |
-| products | 800 | Category, brand, cost, MRP, discount |
-| orders | 40,000 | Order status, payment, shipping, date |
+| Table | Rows | What it contains |
+|-------|------|-----------------|
+| customers | 5,000 | Demographics, acquisition source, segment |
+| products | 800 | Category, brand, MRP, cost, discount |
+| orders | 40,000 | Status, payment method, shipping, date |
 | order_items | 77,192 | Revenue, profit, margin per line item |
 | returns | 7,600 | Return reason, refund status, value |
 | campaigns | 20 | Budget, ROAS, channel, new customers |
 
-Total Revenue: Rs 134.5 Crore | Avg Margin: 42.9% | Return Rate: 19%
+Total Revenue: Rs 134.5 Crore
+Avg Margin: 42.9%
+Return Rate: 19%
 
 ---
 
-## Project Structure
+## Folder Structure
 
 ```
 ecommerce-analytics/
@@ -48,14 +56,17 @@ ecommerce-analytics/
 |   |-- campaigns.csv
 |
 |-- sql/
-|   |-- ecommerce_analysis.sql    (25+ queries, 6 sections)
+|   |-- ecommerce_analysis.sql
 |
 |-- python/
-|   |-- analysis.py               (stats, charts, Excel report)
+|   |-- analysis.py
+|
+|-- tableau/
+|   |-- TABLEAU_GUIDE.md
 |
 |-- outputs/
-|   |-- ecommerce_dashboard.png   (8-panel matplotlib dashboard)
-|   |-- ShopIndia_Analytics_Report.xlsx  (5-sheet Excel report)
+|   |-- ecommerce_dashboard.png
+|   |-- ShopIndia_Analytics_Report.xlsx
 |
 |-- generate_data.py
 |-- run_queries.py
@@ -64,126 +75,121 @@ ecommerce-analytics/
 
 ---
 
-## SQL Analysis (25+ Queries across 6 Sections)
+## SQL Work
 
-**Section 1 - Sales Performance**
-- Year-wise revenue with YoY growth using LAG()
-- Category performance with revenue share and RANK()
-- Monthly seasonality with 5-month smoothed average
-- Top 10 products by revenue and margin
+Six sections covering different parts of the analysis.
 
-**Section 2 - Customer Behaviour**
-- Full RFM segmentation using NTILE(5) window functions
-- Cohort retention analysis month by month
-- Customer Lifetime Value prediction model using PERCENT_RANK()
+Sales performance covers year-over-year growth using LAG, category
+revenue with share percentage using window functions, monthly
+seasonality with a 5-month smoothed average, and top 10 products
+by revenue and margin.
 
-**Section 3 - Statistical Analysis**
-- Descriptive statistics per category: mean, median, std dev, IQR, CV
-- Discount elasticity: revenue and margin by discount bracket
-- Day-of-week and hour demand analysis
-- Payment method A/B style comparison with z-score
+Customer behaviour has the full RFM model using NTILE(5), cohort
+retention analysis tracking users month by month from their first
+order, and a CLV prediction model using PERCENT_RANK to tier customers.
 
-**Section 4 - Return Analysis**
-- Return rate by category and reason with PARTITION BY
-- Return impact on net revenue and profitability
+Statistical analysis in SQL includes descriptive stats per category
+using PERCENTILE_CONT for median and quartile calculations, discount
+elasticity analysis, day-of-week demand patterns, and a z-score
+comparison across payment methods.
 
-**Section 5 - Marketing Analytics**
-- Campaign ROI: ROAS, CAC, revenue per order
-- Channel effectiveness: avg ROAS and cost per acquisition
+Return analysis uses PARTITION BY to calculate return rates within
+categories and measures the impact on net revenue after accounting
+for refunds.
 
-**Section 6 - Advanced Window Functions**
-- 30-day moving average revenue using ROWS BETWEEN
-- Brand market share within category using QUALIFY
-- State percentile ranking using PERCENT_RANK() and DENSE_RANK()
-- Executive KPI summary single query
+Marketing analytics covers campaign ROAS, CAC per channel, and
+revenue per order by campaign. The QUALIFY clause for top-N brand
+per category was a new pattern I learned while writing this.
 
 ---
 
-## Statistical Analysis (Python + SciPy)
+## Statistical Tests
 
-**Pearson Correlation**
-Discount percentage vs profit margin: r = -0.159, p < 0.0001
-Conclusion: Higher discounts significantly reduce profit margins.
-Every 10% increase in discount reduces margin by approximately 1.6 percentage points.
+This is the part that goes beyond standard SQL portfolio projects.
 
-**One-Way ANOVA**
-Revenue variation across product categories: F = 426.25, p < 0.000001
-Conclusion: Revenue differs significantly across categories.
-Electronics and Fashion drive disproportionately higher order values.
+Pearson correlation between discount percentage and profit margin
+came out at r = -0.159 with p less than 0.0001. The relationship
+is statistically significant. Higher discounts hurt margins and
+the data confirms it clearly.
 
-**Descriptive Statistics Applied**
-Mean, Median, Standard Deviation, Variance, IQR, Coefficient of Variation
-computed per category to understand revenue consistency and spread.
+One-way ANOVA testing whether revenue differs across product
+categories gave F = 426.25 with p essentially zero. Revenue
+is not the same across categories. Electronics and Fashion drive
+significantly higher order values than Grocery and Books.
 
-
----
-
-## Excel Report (5 Sheets)
-
-Sheet 1 - Executive Summary: KPI cards + yearly performance table + dashboard image
-Sheet 2 - Category Analytics: Revenue, margin, return analysis
-Sheet 3 - Customer Analytics: RFM segments, state performance, payment method
-Sheet 4 - Marketing Analytics: Campaign ROI + channel effectiveness
-Sheet 5 - Statistical Analysis: Descriptive stats + test results with color coding
+I also calculated mean, median, standard deviation, IQR, and
+coefficient of variation per category to understand which
+categories are consistent versus which ones have high variance.
 
 ---
 
-## Key Business Findings
+## What I Found
 
-Electronics has the highest revenue at Rs 23.4 Crore but carries a 21.3% return rate,
-which is the highest across all categories. This suggests quality or expectation issues
-that need product team attention.
+Electronics has the highest revenue at Rs 23.4 Crore but also
+the highest return rate at 21.3 percent. Something is going wrong
+with product quality or customer expectations in that category.
 
-Champions and Loyal customer segments together represent 35% of customers
-but contribute over 60% of revenue. Retaining these two segments should be
-the primary focus of CRM campaigns.
+Social Media campaigns had the best ROAS at 5.8x. Google Ads
+had lower ROAS but acquired the most new customers per campaign.
+The right channel depends on whether the goal is efficiency
+or growth.
 
-Campaigns run on Social Media channels delivered the highest average ROAS at 5.8x,
-outperforming Email (4.2x) and Google Ads (3.9x). However, Google Ads acquired
-the most new customers per campaign.
+Discounts above 30 percent hurt margins significantly without
+a proportional increase in order volume. The 10 to 20 percent
+bracket is where volume and margin balance best in this dataset.
 
-Higher discounts above 30% show a sharp decline in profit margins without
-a proportional increase in order volume. The optimal discount range for
-balancing volume and profitability is 10-20%.
-
-EMI payment users have the highest average order value at Rs 8,240,
-making them the most valuable segment for electronics and high-ticket categories.
+EMI payment users have the highest average order value at Rs 8,240.
+This makes sense — people use EMI specifically for high-ticket items.
 
 ---
 
-## How to Run
+## How To Run
 
 ```bash
-# Install dependencies
 pip3 install duckdb pandas numpy matplotlib scipy xlsxwriter
-
-# Generate dataset
 python3 generate_data.py
-
-# Run SQL queries
 python3 run_queries.py
-
-# Run Python analysis and generate outputs
 python3 python/analysis.py
 ```
 
-For Tableau: import CSVs from data/ folder and follow tableau/TABLEAU_GUIDE.md
+For Tableau setup follow tableau/TABLEAU_GUIDE.md. It has the
+calculated fields and join logic written out.
 
 ---
 
-## SQL Concepts Demonstrated
+## What I Would Do Differently
 
-CTEs, LAG() and LEAD(), NTILE() for RFM scoring, PERCENT_RANK(),
-DENSE_RANK() and RANK() with PARTITION BY, QUALIFY clause for top-N per group,
-running totals with SUM() OVER, rolling averages with ROWS BETWEEN,
-PERCENTILE_CONT for median and quartiles, multi-table joins across 6 tables,
-CASE-based pivoting, conditional aggregation, statistical z-score in SQL
+The cohort retention analysis is the weakest query in the project.
+I grouped by month of first order but the retention calculation
+is simplified. A proper cohort analysis should track whether each
+user made a purchase in month N after joining, not just whether
+they were active at some point.
+
+The campaign data only has 20 rows which is not enough to draw
+strong conclusions. I want to expand this to 200+ campaigns
+across different time periods so the channel comparison is
+more meaningful.
 
 ---
 
-## About
+## What I Learned
 
-Mehak Pandey - Fresher Data Analyst
-Email: pandeymehak.217@gmail.com
+Running actual statistical tests on data I generated and interpreted
+myself made the numbers feel real. Knowing that the discount-margin
+correlation is statistically significant at p less than 0.0001 is
+more satisfying than just eyeballing a bar chart.
 
+ANOVA was something I had learned in college statistics but never
+applied to real data. Using it to confirm that category differences
+in revenue are not random felt like connecting two things I had
+learned separately.
 
+The QUALIFY clause is something most SQL tutorials do not cover.
+It filters after window functions run which means you can do
+top-N per group in a single query without a subquery.
+I use it regularly now.
+
+---
+
+Mehak Pandey
+pandeymehak.217@gmail.com
