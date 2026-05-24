@@ -2,7 +2,7 @@
 
 **Author:** Mehak Pandey
 **Email:** pandeymehak.217@gmail.com
-**Tools:** SQL, Python, Tableau, Statistics, Excel
+**Tools:** SQL, Python, Statistics, Excel
 **Dataset:** 6 tables | 40,000 orders | 77,000 line items | 2020-2024
 
 ---
@@ -15,8 +15,7 @@ The project demonstrates skills that are directly tested in data analyst intervi
 at companies like Flipkart, Amazon India, Nykaa, Meesho, and Reliance Retail.
 
 The analysis covers revenue performance, customer segmentation using RFM modelling,
-statistical hypothesis testing, return analysis, campaign ROI measurement,
-and Tableau dashboard design using a red-yellow-green traffic light system.
+statistical hypothesis testing, return analysis, campaign ROI measurement
 
 ---
 
@@ -53,9 +52,6 @@ ecommerce-analytics/
 |
 |-- python/
 |   |-- analysis.py               (stats, charts, Excel report)
-|
-|-- tableau/
-|   |-- TABLEAU_GUIDE.md          (calculated fields, dashboard steps)
 |
 |-- outputs/
 |   |-- ecommerce_dashboard.png   (8-panel matplotlib dashboard)
@@ -119,29 +115,6 @@ Electronics and Fashion drive disproportionately higher order values.
 Mean, Median, Standard Deviation, Variance, IQR, Coefficient of Variation
 computed per category to understand revenue consistency and spread.
 
----
-
-## Tableau Dashboards (3 Dashboards)
-
-Dashboard 1: Sales Overview
-- Monthly revenue trend line with year-over-year overlay
-- Category revenue bar chart with Red-Yellow-Green margin color coding
-- State-level filled map with revenue gradient
-- KPI cards: Revenue, Orders, Avg Margin, Return Rate
-
-Dashboard 2: Customer Analytics
-- RFM segment donut chart (6 segments)
-- Customer cohort retention heatmap
-- Acquisition source breakdown
-- CLV distribution histogram
-
-Dashboard 3: Marketing ROI
-- Campaign ROAS bar chart with target reference line at 4x
-- Channel effectiveness scatter plot (ROAS vs new customers, sized by budget)
-- Discount elasticity dual-axis chart (margin + revenue)
-
-Full Tableau setup guide including calculated fields, join logic,
-color scheme, and publishing steps in tableau/TABLEAU_GUIDE.md
 
 ---
 
@@ -213,5 +186,4 @@ CASE-based pivoting, conditional aggregation, statistical z-score in SQL
 Mehak Pandey - Fresher Data Analyst
 Email: pandeymehak.217@gmail.com
 
-This project is part of a data analyst portfolio. The dataset is synthetically
-generated to simulate real Indian e-commerce transaction patterns.
+
